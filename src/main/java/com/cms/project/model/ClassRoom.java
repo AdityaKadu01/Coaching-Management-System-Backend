@@ -17,7 +17,7 @@ public class ClassRoom {
 	private String class_name;
 	@OneToMany(mappedBy = "classRoom")
 	private List<Student> student;
-	@ManyToMany
+	@OneToMany(mappedBy = "classroom")
 	private List<Subject> subject;
 	
 	public ClassRoom() {

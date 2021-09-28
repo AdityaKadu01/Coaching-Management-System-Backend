@@ -16,13 +16,37 @@ public class Subject {
 	@Id
 	private String subject_id;
 	private String subject_name;
-	@ManyToMany(mappedBy = "subject")
-	private List<ClassRoom> classRoom;
+	@ManyToOne()
+	private ClassRoom classroom;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Teacher teacher;
 	
 	public Subject() {
 		
+	}
+
+	public ClassRoom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(ClassRoom classroom) {
+		this.classroom = classroom;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public Subject(String subject_id, String subject_name, ClassRoom classroom, Teacher teacher) {
+		super();
+		this.subject_id = subject_id;
+		this.subject_name = subject_name;
+		this.classroom = classroom;
+		this.teacher = teacher;
 	}
 
 	public Subject(String subject_id, String subject_name) {

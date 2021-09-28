@@ -28,6 +28,22 @@ public class Teacher {
 		this.teacher_Lname = teacher_Lname;
 	}
 
+	public List<Subject> getSubject() {
+		return subject;
+	}
+
+	public void setSubject(List<Subject> subject) {
+		this.subject = subject;
+	}
+
+	public Teacher(String teacher_id, String teacher_Fname, String teacher_Lname, List<Subject> subject) {
+		super();
+		this.teacher_id = teacher_id;
+		this.teacher_Fname = teacher_Fname;
+		this.teacher_Lname = teacher_Lname;
+		this.subject = subject;
+	}
+
 	public String getTeacher_id() {
 		return teacher_id;
 	}

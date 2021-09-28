@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cms.project.dto.SubjectDetailResult;
 import com.cms.project.exception.ResourceNotFoundException;
+import com.cms.project.model.ClassRoom;
 import com.cms.project.model.Student;
+import com.cms.project.model.Subject;
+import com.cms.project.repository.ClassroomRepository;
 import com.cms.project.repository.StudentRepository;
+import com.cms.project.repository.SubjectRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -27,6 +32,11 @@ public class StudentController {
 	
 	@Autowired
 	private StudentRepository studentRepository;
+	
+	@Autowired
+	private ClassroomRepository classroomRepo;
+	
+	private SubjectRepository subjectRepo;
 
 	@GetMapping("/allstudents")       // to get all student data
 	public List<Student> getAllStudents() {
@@ -57,6 +67,8 @@ public class StudentController {
 		student.setStud_Mobileno(studentDetails.getStud_Mobileno());
 		student.setStud_Password(studentDetails.getStud_Password());
 		student.setAddress(studentDetails.getAddress());
+		student.setStud_10thper(studentDetails.getStud_10thper());
+		student.setStud_passyear(studentDetails.getStud_passyear());
 		
 		Student studentUpdated = studentRepository.save(student);
 		return ResponseEntity.ok(studentUpdated);
@@ -72,4 +84,33 @@ public class StudentController {
 		response.put("deleted", Boolean.TRUE);
 		return ResponseEntity.ok(response);
 	}
+	
+	
+	@GetMapping("/allstudents/subject/{stud_id}")
+	public List<SubjectDetailResult> getStudentSubject(@PathVariable Long stud_id) {	
+		
+		return studentRepository.getSubjectById(stud_id);
+	}
+	
+	@GetMapping("/class/subject/{stud_id}")
+	public String getStudentClassroom(@PathVariable Long stud_id) {	
+		
+		return studentRepository.getClassroomById(stud_id);
+	}
+	
+	@GetMapping("/allstudents/percentsort/{stud_10thper}")
+	public List<Student> getStudentbyPercent(String per){
+		
+		return studentRepository.getStudentByClass(per);
+	}
+	
+//	@GetMapping("/getsubjectid")
+//	public Student getStudentId(String email) {	
+//		
+//		return studentRepository.getStudentIdByEmail(email);
+//	}
+	
+	
+	
+	
 }
